@@ -116,7 +116,7 @@ class ActivityMonitor(ctk.CTk):
         """
         Analyze activities using Ollama.
         """
-        detailed_description = generate_answers("vicuna:13b-16k", self.markdown_log, self.use_ollama)
+        detailed_description = generate_answers("vicuna:13b-16k", self.markdown_log, True)
         if detailed_description:
             self.markdown_log = detailed_description
             self.write_markdown_file()
