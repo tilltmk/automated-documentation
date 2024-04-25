@@ -4,3 +4,4 @@ clipboard
 pygetwindow
 pyscreenshot
 markdown2
+ollama
