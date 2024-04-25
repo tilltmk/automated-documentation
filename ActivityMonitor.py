@@ -21,7 +21,7 @@ elif platform.system() == "Windows":
 
 def generate_answers(model_name, prompt, use_ollama):
     """
-    Generate answers using the Ollama model or return the prompt as is.
+    Generate answers using the Ollama model or return the prompt as is, while preserving the original prompt.
     
     Args:
         model_name (str): The name of the Ollama model.
@@ -29,20 +29,20 @@ def generate_answers(model_name, prompt, use_ollama):
         use_ollama (bool): Flag indicating whether to use Ollama for analysis.
     
     Returns:
-        str: The generated detailed description or the original prompt.
+        tuple: A tuple containing the generated detailed description and the original prompt.
     """
     if not use_ollama:
-        return prompt
+        return prompt, prompt  # Return the prompt twice for consistency
     
-    full_prompt = f"describe the following actions for this markdown documentation in short terms and with context: {prompt}"
-    model_name = "vicuna:13b-16k"
+    full_prompt = f"describe the following actions for this markdown documentation in short terms regarding and with context and also format in markdown for documentation purposes: {prompt}"
     messages = [{'role': 'user', 'content': full_prompt}]
     try:
         response = ollama.chat(model=model_name, messages=messages)
-        return response['message']['content']
+        # Return both the detailed description and the original prompt
+        return response['message']['content'], prompt
     except Exception as e:
         print(f"There was an error communicating with the Ollama model: {e}")
-        return None
+        return None, prompt
 
 def get_active_window_title():
     """
@@ -116,10 +116,11 @@ class ActivityMonitor(ctk.CTk):
         """
         Analyze activities using Ollama.
         """
-        detailed_description = generate_answers("vicuna:13b-16k", self.markdown_log, True)
+        detailed_description, original_prompt = generate_answers("vicuna:13b-16k", self.markdown_log, True)
         if detailed_description:
-            self.markdown_log = detailed_description
-            self.write_markdown_file()
+            comment = f"Original prompt preserved: {original_prompt}\nOllama's enhanced description: {detailed_description}"
+            self.markdown_log += "\n" + comment
+            self.append_to_markdown(comment)
 
     # Method to quit monitoring and write the log to a file
     def quit_monitoring(self):
