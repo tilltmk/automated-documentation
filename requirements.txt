@@ -1,7 +1,10 @@
 customtkinter
 keyboard
 clipboard
-pygetwindow
-pyscreenshot
 markdown2
 ollama
+pyautogui
+mss  
+python-xlib  
+pyscreenshot  
+pygetwindow  

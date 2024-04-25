@@ -50,6 +50,45 @@ python ActivityMonitor.py
 ## Configuration 🔧
 
 Automated Documentation comes ready to use with default settings, but you can adjust the configurations to better meet your specific needs.
+Sudo / Root Access might be required on Linux.
+
+### Installation of required packages on Linux
+
+#### Debian/Ubuntu
+
+```bash
+sudo apt-get update
+sudo apt-get install python3-pip python3-tk xdotool scrot
+sudo pip3 install -r requirements.txt
+```
+
+#### Arch Linux
+
+```bash
+sudo pacman -Syu
+sudo pacman -S python-pip tk xdotool scrot
+sudo pip install -r requirements.txt
+```
+
+#### openSUSE
+
+```bash
+sudo zypper refresh
+sudo zypper install python3-pip python3-tk xdotool scrot
+sudo pip3 install -r requirements.txt
+```
+
+#### Fedora
+
+```bash
+sudo dnf update
+sudo dnf install python3-pip python3-tk xdotool scrot
+sudo pip3 install -r requirements.txt
+```
+#### Ollama Installation
+
+Please refer to:
+https://github.com/ollama/ollama
 
 ## Contributing 🤝
 
