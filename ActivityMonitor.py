@@ -73,7 +73,7 @@ class ActivityMonitor(ctk.CTk):
             key_events = keyboard.record(until='enter')
             typed_text = ''.join([event.name for event in key_events if event.event_type == 'down' and len(event.name) == 1 or event.name == 'space'])
             if typed_text:
-                self.markdown_log += f"\n- **Typed Text**: {typed_text.replace('space', ' ')}"
+                self.markdown_log += f"\n- **Typed Text**: {typed_text.replace('space', ' ')} \n"
                 self.text_buffer = ""
 
             time.sleep(1)  # Reduce CPU usage
