@@ -25,7 +25,7 @@ Automated Documentation is a robust desktop application designed to log your dai
 Ensure you have Python installed along with the following packages:
 
 ```bash
-pip install customtkinter keyboard clipboard pygetwindow pyscreenshot markdown2
+pip install customtkinter keyboard clipboard pygetwindow pyscreenshot markdown2 ollama
 ```
 
 ### Installation
