@@ -1,0 +1,6 @@
+customtkinter
+keyboard
+clipboard
+pygetwindow
+pyscreenshot
+markdown2
