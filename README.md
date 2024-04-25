@@ -44,7 +44,7 @@ pip install customtkinter keyboard clipboard pygetwindow pyscreenshot markdown2
 Execute the main script to start Automated Documentation:
 
 ```bash
-python main.py
+python ActivityMonitor.py
 ```
 
 ## Configuration 🔧
