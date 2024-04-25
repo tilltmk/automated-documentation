@@ -32,7 +32,7 @@ pip install customtkinter keyboard clipboard pygetwindow pyscreenshot markdown2
 
 1. Clone the repository or download the source code:
    ```bash
-   git clone https://github.com/yourusername/automated-documentation.git
+   git clone https://github.com/tilltmk/automated-documentation.git
    ```
 2. Navigate to the project directory:
    ```bash
