@@ -7,6 +7,22 @@ import time
 import markdown2
 import threading
 import os
+import ollama
+
+def generate_answers(model_name, prompt):
+    model_name = "vicuna:13b-16k"
+    messages = [
+        {
+            'role': 'user',
+            'content': prompt,
+        },
+    ]
+    try:
+        response = ollama.chat(model=model_name, messages=messages)
+        return response['message']['content']
+    except Exception as e:
+        print(f"There was an error communicating with the Ollama model: {e}")
+        return None
 
 class ActivityMonitor(ctk.CTk):
     def __init__(self):
@@ -24,6 +40,9 @@ class ActivityMonitor(ctk.CTk):
         self.stop_button = ctk.CTkButton(self, text="Stop", command=self.stop_monitoring)
         self.stop_button.pack(pady=10)
 
+        self.ollama_button = ctk.CTkButton(self, text="Analyze with Ollama", command=self.analyze_with_ollama)
+        self.ollama_button.pack(pady=10)
+
         self.quit_button = ctk.CTkButton(self, text="Quit", command=self.quit_monitoring)
         self.quit_button.pack(pady=10)
 
@@ -34,6 +53,13 @@ class ActivityMonitor(ctk.CTk):
 
     def stop_monitoring(self):
         self.is_running = False
+
+    def analyze_with_ollama(self):
+        # Hier nehmen Sie an, dass `self.markdown_log` Ihre gesammelten Daten enthält
+        detailed_description = generate_answers("vicuna:13b-16k", self.markdown_log)
+        if detailed_description:
+            self.markdown_log = detailed_description
+            self.write_markdown_file()
 
     def quit_monitoring(self):
         self.stop_monitoring()
@@ -73,15 +99,14 @@ class ActivityMonitor(ctk.CTk):
             key_events = keyboard.record(until='enter')
             typed_text = ''.join([event.name for event in key_events if event.event_type == 'down' and len(event.name) == 1 or event.name == 'space'])
             if typed_text:
-                self.markdown_log += f"\n- **Typed Text**: {typed_text.replace('space', ' ')} \n"
+                self.markdown_log += f"\n- **Typed Text**: {typed_text.replace('space', ' ')}"
                 self.text_buffer = ""
 
             time.sleep(1)  # Reduce CPU usage
 
     def write_markdown_file(self):
         with open("activity_log.md", "w", encoding='utf-8') as md_file:
-            html = markdown2.markdown(self.markdown_log)
-            md_file.write(html)
+            md_file.write(self.markdown_log)
 
 if __name__ == "__main__":
     app = ActivityMonitor()
