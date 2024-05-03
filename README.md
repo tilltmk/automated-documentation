@@ -2,7 +2,7 @@
 # Automated Documentation 📊
 ###### *with optional Ollama Integration*
 
-<p align="center"> ![Screenshot Program](icons/icon.png) </p>
+<p align="center"> <img src="icons/icon.png" </p>
 
 **Automated Documentation** streamlines your digital workflow by meticulously logging your daily computer activities in a markdown document. From capturing website visits and clipboard changes to monitoring active windows and recording typed text, this tool enhances productivity and keeps detailed records for review. Perfect for professionals and personal use to keep track of digital interactions seamlessly.
 
