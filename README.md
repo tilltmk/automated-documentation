@@ -1,11 +1,11 @@
-<p align="center">
+<div align="center">
 <h1>Automated Documentation 📊</h1> 
-<h6><k>with optional Ollama Integration</k></h6>
+<h6><u>with optional Ollama Integration</u></h6>
 
  <img src="icons/icon.png" 
 
-<b>Automated Documentation</b> streamlines your digital workflow by meticulously logging your daily computer activities in a markdown document. From capturing website visits and clipboard changes to monitoring active windows and recording typed text, this tool enhances productivity and keeps detailed records for review. Perfect for professionals and personal use to keep track of digital interactions seamlessly.
-</p>
+<b>Automated Documentation</b> <p>streamlines your digital workflow by meticulously logging your daily computer activities in a markdown document. From capturing website visits and clipboard changes to monitoring active windows and recording typed text, this tool enhances productivity and keeps detailed records for review. Perfect for professionals and personal use to keep track of digital interactions seamlessly.</p>
+</div>
 ---
 
 ## Screenshots
