@@ -8,10 +8,10 @@
 
 ## Screenshots
 
-[Screenshot Program](screenshots/screenshot02.png)
+[Screenshot Program](/screenshots/screenshot02.png)
 _Screenshot: the main program with built with customtkinter_
 
-[Screenshot Output Example without Ollama](screenshots/screenshot01.png)
+[Screenshot Output Example without Ollama](/screenshots/screenshot01.png)
 _Screenshot: output example without Ollama_
 
 ## Overview 🌟
