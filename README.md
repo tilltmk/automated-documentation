@@ -17,6 +17,9 @@ _Screenshot: the main program with built with customtkinter_
 
 _Screenshot: output example without Ollama_
 
+latest example output with OLLAMA:
+[right here](screenshots/ollama_example.md)
+
 ---
 
 ## Overview 🌟
