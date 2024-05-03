@@ -9,7 +9,7 @@
 ## Screenshots
 ---
 
-![Screenshot Program](screenshots/screenshot02.png)
+![Screenshot Program](screenshots/screenshot03.png)
 
 _Screenshot: the main program with built with customtkinter_
 
