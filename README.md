@@ -49,36 +49,7 @@ pip install customtkinter keyboard clipboard pygetwindow pyscreenshot markdown2 
 
 ---
 
-### Installation of required packages on Windows 🖥️
-
-1. Clone the repository to your local machine. You can do this by running the following command in your Git Bash:
-
-```bash
-git clone <repository_url>
-```
-
-Replace `<repository_url>` with the URL of the GitHub repository.
-
-2. This script requires several Python libraries. You can install them by running the following command in your command prompt:
-
-```bash
-pip install customtkinter keyboard clipboard ollama pyscreenshot pygetwindow
-```
-
-3. Navigate to the directory containing the script and run it with Python:
-
-```bash
-cd <directory>
-python script.py
-```
-
-Replace `<directory>` with the path to the directory containing the script.
-
-🎉 Congratulations! You should now be able to run the Python script on your Windows computer!
-
-> Note: The exact steps may vary depending on your specific hardware and operating system. For specific questions or issues, we recommend consulting the official Python and library documentation or seeking help from online communities.
-
----
+## Installation
 
 ### Installation on Linux
 
@@ -91,7 +62,7 @@ Replace `<directory>` with the path to the directory containing the script.
    cd automated-documentation
    ```
 
-### Running
+#### Running
 
 Execute the main script to start Automated Documentation:
 
@@ -99,14 +70,10 @@ Execute the main script to start Automated Documentation:
 python ActivityMonitor.py
 ```
 
-## Configuration 🔧
 
-Automated Documentation comes ready to use with default settings, but you can adjust the configurations to better meet your specific needs.
-Sudo / Root Access might be required on Linux.
+#### Installation of required packages on Linux
 
-### Installation of required packages on Linux
-
-#### Debian/Ubuntu
+##### Debian/Ubuntu
 
 ```bash
 sudo apt-get update
@@ -114,7 +81,7 @@ sudo apt-get install python3-pip python3-tk xdotool scrot
 sudo pip3 install -r requirements.txt
 ```
 
-#### Arch Linux
+##### Arch Linux
 
 ```bash
 sudo pacman -Syu
@@ -122,7 +89,7 @@ sudo pacman -S python-pip tk xdotool scrot
 sudo pip install -r requirements.txt
 ```
 
-#### openSUSE
+##### openSUSE
 
 ```bash
 sudo zypper refresh
@@ -130,14 +97,50 @@ sudo zypper install python3-pip python3-tk xdotool scrot
 sudo pip3 install -r requirements.txt
 ```
 
-#### Fedora
+##### Fedora
 
 ```bash
 sudo dnf update
 sudo dnf install python3-pip python3-tk xdotool scrot
 sudo pip3 install -r requirements.txt
 ```
-#### Ollama Installation
+
+
+### Installation of required packages on Windows 🖥️
+
+1. Clone the repository to your local machine. You can do this by running the following command in your Git Bash:
+
+```bash
+git clone https://github.com/tilltmk/automated-documentation
+```
+
+2. This script requires several Python libraries. You can install them by running the following command in your command prompt:
+
+```bash
+pip install customtkinter keyboard clipboard ollama pyscreenshot pygetwindow
+```
+
+3. Navigate to the directory containing the script and run it with Python:
+
+```bash
+cd automated-documentation
+python script.py
+```
+
+Replace `<directory>` with the path to the directory containing the script.
+
+🎉 Congratulations! You should now be able to run the Python script on your Windows computer!
+
+> Note: The exact steps may vary depending on your specific hardware and operating system. For specific questions or issues, we recommend consulting the official Python and library documentation or seeking help from online communities.
+
+
+## Configuration 🔧
+
+Automated Documentation comes ready to use with default settings, but you can adjust the configurations to better meet your specific needs.
+Sudo / Root Access might be required on Linux.
+
+
+## Ollama Installation
 
 Please refer to:
 https://github.com/ollama/ollama
