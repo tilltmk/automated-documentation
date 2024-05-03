@@ -20,7 +20,6 @@ screenshot_directory = "screenshots"
 archive_directory = "archives"
 
 def generate_answers(model_name, prompt):
-    model_name = "vicuna:13b-16k"
     messages = [
         {
             'role': 'user',
@@ -94,7 +93,7 @@ class ActivityMonitor(ctk.CTk):
     def __init__(self):
         super().__init__()
         self.title("Activity Monitor")
-        self.geometry("400x300")
+        self.geometry("400x400")
 
         self.is_running = False
         self.text_buffer = ""
@@ -104,26 +103,30 @@ class ActivityMonitor(ctk.CTk):
         ctk.set_appearance_mode("dark")
         ctk.set_default_color_theme("green")
 
-        # Create a frame for the buttons
-        self.button_frame = ctk.CTkFrame(self)
-        self.button_frame.pack(pady=20)
+        # Create a frame for the buttons with margins
+        self.button_frame = ctk.CTkFrame(self, corner_radius=10)
+        self.button_frame.pack(pady=20, padx=20, fill="both", expand=True)
 
-        # Create buttons with icons
+        # Create an entry for the Ollama model name
+        self.model_entry = ctk.CTkEntry(self.button_frame, placeholder_text="Enter Ollama model name")
+        self.model_entry.pack(pady=(20, 10), padx=20, fill="x")
+
+        # Create buttons with icons and margins
         self.start_button = ctk.CTkButton(self.button_frame, text="Start", command=self.start_monitoring, width=120, height=40, font=("Arial", 14))
-        self.start_button.pack(pady=10)
+        self.start_button.pack(pady=10, padx=20)
 
         self.stop_button = ctk.CTkButton(self.button_frame, text="Stop", command=self.stop_monitoring, width=120, height=40, font=("Arial", 14))
-        self.stop_button.pack(pady=10)
+        self.stop_button.pack(pady=10, padx=20)
 
         self.ollama_button = ctk.CTkButton(self.button_frame, text="Analyze with Ollama", command=self.analyze_with_ollama, width=120, height=40, font=("Arial", 14))
-        self.ollama_button.pack(pady=10)
+        self.ollama_button.pack(pady=10, padx=20)
 
         self.quit_button = ctk.CTkButton(self.button_frame, text="Quit", command=self.quit_monitoring, width=120, height=40, font=("Arial", 14))
-        self.quit_button.pack(pady=10)
+        self.quit_button.pack(pady=(10, 20), padx=20)
 
-        # Create a label to display the current status
+        # Create a label to display the current status with margins
         self.status_label = ctk.CTkLabel(self, text="Status: Not Running", font=("Arial", 16))
-        self.status_label.pack(pady=10)
+        self.status_label.pack(pady=(10, 20))
 
     def start_monitoring(self):
         if not self.is_running:
@@ -137,10 +140,15 @@ class ActivityMonitor(ctk.CTk):
 
     def analyze_with_ollama(self):
         prompt: str = f"Please analyze the following activities and add your comments:\n\n{self.markdown_log}"
-        detailed_description = generate_answers(model_name="vicuna:13b-16k", prompt=prompt)
+        model_name = self.model_entry.get()
+        if not model_name:
+            model_name = "vicuna:13b-16k"  # Default model name if not provided
+        self.status_label.configure(text="Status: Analyzing with Ollama.. Please wait.")
+        detailed_description = generate_answers(model_name=model_name, prompt=prompt)
         if detailed_description:
             self.markdown_log += f"\n\n## Ollama's Analysis\n\n{detailed_description}"
             self.write_markdown_file()
+        self.status_label.configure(text="Status: Analysis Complete")
 
     def quit_monitoring(self):
         self.stop_monitoring()
@@ -164,7 +172,11 @@ class ActivityMonitor(ctk.CTk):
             # Capture active window and screenshot
             window_title = get_active_window_title()
             if previous_window != window_title:
-                self.markdown_log += f"\n## Window Selected: {window_title}\n\n![Screenshot]({screenshot_directory}/{time.time()}_screenshot.png)\n"
+                screenshot_counter = 0
+                while screenshot_counter < 4:
+                    self.markdown_log += f"\n## Window Selected: {window_title}\n\n![Screenshot]({screenshot_directory}/{time.time()}_screenshot.png)\n"
+                    time.sleep(5)
+                    screenshot_counter += 1
                 previous_window = window_title
 
             # Capture typed keys (improved version)
@@ -172,6 +184,9 @@ class ActivityMonitor(ctk.CTk):
             typed_text = ''.join([event.name for event in key_events if event.event_type == 'down' and len(event.name) == 1 or event.name == 'space'])
             if typed_text:
                 self.markdown_log += f"\n- **Typed Text**: {typed_text.replace('space', ' ')}\n"
+                self.text_buffer = ""
+            elif any(event.name in ['ctrl', 'alt', 'shift'] for event in key_events):
+                self.markdown_log += f"\n- **Typed Text**: {self.text_buffer}\n"
                 self.text_buffer = ""
 
             # Archive URLs
