@@ -6,6 +6,14 @@
 
 ---
 
+## Screenshots
+
+[Screenshot Program](screenshots/screenshot02.png)
+_Screenshot: the main program with built with customtkinter_
+
+[Screenshot Output Example without Ollama](screenshots/screenshot01.png)
+_Screenshot: output example without Ollama_
+
 ## Overview 🌟
 
 Automated Documentation is a robust desktop application designed to log your daily computer activities comprehensively. From tracking visited websites to capturing text inputs, this tool ensures no significant details escape your notice. 🖥️📝
