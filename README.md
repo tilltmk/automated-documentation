@@ -47,7 +47,40 @@ Ensure you have Python installed along with the following packages:
 pip install customtkinter keyboard clipboard pygetwindow pyscreenshot markdown2 ollama
 ```
 
-### Installation
+---
+
+### Installation of required packages on Windows 🖥️
+
+1. Clone the repository to your local machine. You can do this by running the following command in your Git Bash:
+
+```bash
+git clone <repository_url>
+```
+
+Replace `<repository_url>` with the URL of the GitHub repository.
+
+2. This script requires several Python libraries. You can install them by running the following command in your command prompt:
+
+```bash
+pip install customtkinter keyboard clipboard ollama pyscreenshot pygetwindow
+```
+
+3. Navigate to the directory containing the script and run it with Python:
+
+```bash
+cd <directory>
+python script.py
+```
+
+Replace `<directory>` with the path to the directory containing the script.
+
+🎉 Congratulations! You should now be able to run the Python script on your Windows computer!
+
+> Note: The exact steps may vary depending on your specific hardware and operating system. For specific questions or issues, we recommend consulting the official Python and library documentation or seeking help from online communities.
+
+---
+
+### Installation on Linux
 
 1. Clone the repository or download the source code:
    ```bash
