@@ -6,7 +6,7 @@
 
 <b>Automated Documentation</b> <p>streamlines your digital workflow by meticulously logging your daily computer activities in a markdown document. From capturing website visits and clipboard changes to monitoring active windows and recording typed text, this tool enhances productivity and keeps detailed records for review. Perfect for professionals and personal use to keep track of digital interactions seamlessly.</p>
 </div>
----
+
 
 ## Screenshots
 ---
