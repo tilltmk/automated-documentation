@@ -1,6 +1,6 @@
 <p align="center">
 <h1>Automated Documentation 📊</h1> 
-<h6><u>with optional Ollama Integration</u></h6>
+<h6><k>with optional Ollama Integration</k></h6>
 
  <img src="icons/icon.png" 
 
