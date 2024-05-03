@@ -51,6 +51,7 @@ pip install customtkinter keyboard clipboard pygetwindow pyscreenshot markdown2 
 
 ## Installation
 
+
 ### Installation on Linux
 
 1. Clone the repository or download the source code:
@@ -72,6 +73,7 @@ python ActivityMonitor.py
 
 
 #### Installation of required packages on Linux
+
 
 ##### Debian/Ubuntu
 
@@ -106,6 +108,7 @@ sudo pip3 install -r requirements.txt
 ```
 
 
+
 ### Installation of required packages on Windows 🖥️
 
 1. Clone the repository to your local machine. You can do this by running the following command in your Git Bash:
@@ -132,6 +135,7 @@ Replace `<directory>` with the path to the directory containing the script.
 🎉 Congratulations! You should now be able to run the Python script on your Windows computer!
 
 > Note: The exact steps may vary depending on your specific hardware and operating system. For specific questions or issues, we recommend consulting the official Python and library documentation or seeking help from online communities.
+
 
 
 ## Configuration 🔧
