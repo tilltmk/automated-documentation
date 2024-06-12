@@ -20,17 +20,12 @@ screenshot_directory = "screenshots"
 archive_directory = "archives"
 
 def generate_answers(model_name, prompt):
-    messages = [
-        {
-            'role': 'user',
-            'content': prompt,
-        },
-    ]
+    messages = [{'role': 'user', 'content': prompt}]
     try:
         response = ollama.chat(model=model_name, messages=messages)
         return response['message']['content']
     except Exception as e:
-        print(f"There was an error communicating with the Ollama model: {e}")
+        print(f"Error communicating with the Ollama model: {e}")
         return None
     
 def get_active_window_title():
@@ -41,77 +36,77 @@ def get_active_window_title():
         str: The title of the active window.
     """
     if platform.system() == "Linux":
-        try:
-            # Get the window ID of the currently focused window
-            window_id = subprocess.check_output(["xdotool", "getactivewindow"]).decode().strip()
-
-            # Get the name of the window with this ID
-            window_name = subprocess.check_output(["xdotool", "getwindowname", window_id]).decode().strip()
-
-            # Get the geometry of the window (position and size)
-            geom_output = subprocess.check_output(["xdotool", "getwindowgeometry", "--shell", window_id]).decode()
-
-            # Use a dictionary to store variables from the shell output
-            geom_vars = dict(re.findall(r'(\w+)=(\S+)', geom_output))
-
-            # Convert values to integers
-            x = int(geom_vars['X'])
-            y = int(geom_vars['Y'])
-            width = int(geom_vars['WIDTH'])
-            height = int(geom_vars['HEIGHT'])
-
-            with mss.mss() as sct:
-                # The screenshot region is a tuple: (x, y, width, height)
-                monitor = {"top": y, "left": x, "width": width, "height": height}
-                screenshot_path = os.path.join(screenshot_directory, f"{time.time()}_screenshot.png")
-                # Capture the specified region
-                sct_img = sct.grab(monitor)
-                mss.tools.to_png(sct_img.rgb, sct_img.size, output=screenshot_path)
-            
-            return window_name
-        except subprocess.CalledProcessError as e:
-            print(f"Error retrieving window title: {e}")
-            return None
+        return get_linux_active_window()
     elif platform.system() == "Windows":
-        # Capture active window and screenshot
-        active_window = gw.getActiveWindow()
-        if active_window:
-            try:
-                # save screenshot
-                screenshot_path = os.path.join(screenshot_directory, f"{time.time()}_screenshot.png")
-                screenshot = ImageGrab.grab(bbox=active_window.box)
-                screenshot.save(screenshot_path)
+        return get_windows_active_window()
+    return None
 
-                # save title and screenshot in markdown log
-                window_title = active_window.title if active_window.title else "Unknown Window"
-                return window_title
-            except Exception as e:
-                print(f"Error getting active window: {e}")
-                return None
+def get_linux_active_window():
+    """
+    Get the active window title on Linux.
+    
+    Returns:
+        str: The title of the active window.
+    """
+    try:
+        window_id = subprocess.check_output(["xdotool", "getactivewindow"]).decode().strip()
+        window_name = subprocess.check_output(["xdotool", "getwindowname", window_id]).decode().strip()
+        geom_output = subprocess.check_output(["xdotool", "getwindowgeometry", "--shell", window_id]).decode()
+        geom_vars = dict(re.findall(r'(\w+)=(\S+)', geom_output))
+        x, y = int(geom_vars['X']), int(geom_vars['Y'])
+        width, height = int(geom_vars['WIDTH']), int(geom_vars['HEIGHT'])
+
+        with mss.mss() as sct:
+            monitor = {"top": y, "left": x, "width": width, "height": height}
+            screenshot_path = os.path.join(screenshot_directory, f"{time.time()}_screenshot.png")
+            sct_img = sct.grab(monitor)
+            mss.tools.to_png(sct_img.rgb, sct_img.size, output=screenshot_path)
+
+        return window_name
+    except subprocess.CalledProcessError as e:
+        print(f"Error retrieving window title: {e}")
+        return None
+
+def get_windows_active_window():
+    """
+    Get the active window title on Windows.
+    
+    Returns:
+        str: The title of the active window.
+    """
+    active_window = gw.getActiveWindow()
+    if active_window:
+        try:
+            screenshot_path = os.path.join(screenshot_directory, f"{time.time()}_screenshot.png")
+            screenshot = ImageGrab.grab(bbox=active_window.box)
+            screenshot.save(screenshot_path)
+            return active_window.title if active_window.title else "Unknown Window"
+        except Exception as e:
+            print(f"Error getting active window: {e}")
+            return None
+    return None
 
 class ActivityMonitor(ctk.CTk):
     def __init__(self):
         super().__init__()
+        self.init_ui()
+
+    def init_ui(self):
         self.title("Activity Monitor")
         self.geometry("400x400")
-
         self.is_running = False
         self.text_buffer = ""
         self.markdown_log = ""
 
-        # Set theme and color scheme
         ctk.set_appearance_mode("dark")
         ctk.set_default_color_theme("green")
 
-        # Create a frame for the buttons with margins
         self.button_frame = ctk.CTkFrame(self, corner_radius=10)
         self.button_frame.pack(pady=20, padx=20, fill="both", expand=True)
 
-        # Create an entry for the Ollama model name
         self.model_entry = ctk.CTkEntry(self.button_frame, placeholder_text="Enter Ollama model name")
         self.model_entry.pack(pady=(20, 10), padx=20, fill="x")
 
-        # Create buttons with icons and margins
         self.start_button = ctk.CTkButton(self.button_frame, text="Start", command=self.start_monitoring, width=120, height=40, font=("Arial", 14))
         self.start_button.pack(pady=10, padx=20)
 
@@ -124,7 +119,6 @@ class ActivityMonitor(ctk.CTk):
         self.quit_button = ctk.CTkButton(self.button_frame, text="Quit", command=self.quit_monitoring, width=120, height=40, font=("Arial", 14))
         self.quit_button.pack(pady=(10, 20), padx=20)
 
-        # Create a label to display the current status with margins
         self.status_label = ctk.CTkLabel(self, text="Status: Not Running", font=("Arial", 16))
         self.status_label.pack(pady=(10, 20))
 
