@@ -44,7 +44,7 @@ def get_active_window_title():
 def get_linux_active_window():
     """
     Get the active window title on Linux.
-    
+
     Returns:
         str: The title of the active window.
     """
@@ -56,11 +56,15 @@ def get_linux_active_window():
         x, y = int(geom_vars['X']), int(geom_vars['Y'])
         width, height = int(geom_vars['WIDTH']), int(geom_vars['HEIGHT'])
 
-        with mss.mss() as sct:
-            monitor = {"top": y, "left": x, "width": width, "height": height}
-            screenshot_path = os.path.join(screenshot_directory, f"{time.time()}_screenshot.png")
-            sct_img = sct.grab(monitor)
-            mss.tools.to_png(sct_img.rgb, sct_img.size, output=screenshot_path)
+        # Attempt to capture screenshot, but don't fail if it doesn't work
+        try:
+            with mss.mss() as sct:
+                monitor = {"top": y, "left": x, "width": width, "height": height}
+                screenshot_path = os.path.join(screenshot_directory, f"{time.time()}_screenshot.png")
+                sct_img = sct.grab(monitor)
+                mss.tools.to_png(sct_img.rgb, sct_img.size, output=screenshot_path)
+        except Exception as e:
+            print(f"Warning: Screenshot capture failed ({e}), continuing without screenshot")
 
         return window_name
     except subprocess.CalledProcessError as e:
